@@ -6,6 +6,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -16,10 +17,23 @@ class AuthController extends Controller
             'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
-            //'password_confirm' => Hash::make($request->input('password_confirm')),
+           // 'password_confirm' => Hash::make($request->input('password_confirm')),
             
         ]);
         return response($user , Response::HTTP_CREATED);
+    }
+    public function login(Request $request){
+        if(!Auth::attempt($request->only('email','password'))){
+            return \response([
+                'error'=>'invalid credentials'
+            ] , Response::HTTP_UNAUTHORIZED);
+        }
+        /**@var User $user */
+        $user = Auth::user();
+        $token = $user->createToken('token')->plainTextToken;
+        return \response([
+            'jwt'=>$token
+        ]);
     }
     
 }
