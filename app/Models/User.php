@@ -42,5 +42,8 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     protected $guarded=[];
     protected $hidden=['password'];
+    public function role(){
+    return $this->belongsTo(Role::class);
+    }
 
 }
