@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Cookie;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateInfoRequest;
 use App\Http\Requests\UpdatePasswordInfo;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,10 +20,11 @@ class AuthController extends Controller
             'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
+            'role_id'=>1
            // 'password_confirm' => Hash::make($request->input('password_confirm')),
             
         ]);
-        return response($user , Response::HTTP_CREATED);
+        return response(new UserResource($user) , Response::HTTP_CREATED);
     }
     public function login(Request $request){
         if(!Auth::attempt($request->only('email','password'))){
@@ -40,7 +42,8 @@ class AuthController extends Controller
     }
 
     public function user(Request $request){
-        return $request->user();
+        $user = $request->user();
+        return new UserResource($user->load('role')) ;
     }
     public function logout(){
         $cookie = Cookie::forget('jwt');
@@ -52,11 +55,11 @@ class AuthController extends Controller
     public function updateInfo(UpdateInfoRequest $request){
         $user = $request->user();
         $user->update($request->only('first_name','last_name','email'));
-        return response($user , Response::HTTP_ACCEPTED);
+        return response(new UserResource($user) , Response::HTTP_ACCEPTED);
     }
     public function updatePassword(UpdatePasswordInfo $request){
         $user = $request->user();
         $user->update(['password' => Hash::make($request->input('password'))]);
-        return response($user , Response::HTTP_ACCEPTED);
+        return response(new UserResource($user) , Response::HTTP_ACCEPTED);
     }
 }
