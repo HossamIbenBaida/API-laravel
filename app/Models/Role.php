@@ -17,11 +17,19 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
+ * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Permission> $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $user
+ * @property-read int|null $user_count
+ * @method static \Database\Factories\RoleFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
  * @mixin \Eloquent
  */
 class Role extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     public $timestamps = false;
 
     public function user(){
