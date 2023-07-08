@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereName($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $roles
  * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $roles
  * @mixin \Eloquent
  */
 class Permission extends Model
