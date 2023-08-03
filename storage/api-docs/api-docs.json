@@ -1,0 +1,221 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Admin Documentation",
+        "description": "Admin open API description",
+        "contact": {
+            "email": "hossamibenbaida@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/users": {
+            "get": {
+                "summary": "Get list of users",
+                "operationId": "c457726701591d1183b53aa71fc13441",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagination page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Collection",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/": {
+            "post": {
+                "operationId": "065d971715066986f65f7c376dbfd285",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserCreateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "summary": "Get list of users",
+                "operationId": "36a33ff774d5cba33c039dec2c3e0287",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Collection",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "operationId": "b9091397c8b25f12c6adb74be6ce3a5a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "User"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete of user",
+                "operationId": "fa56cffde745d3f152f95cbacd936c0b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "User Collection",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "UserCreateRequest": {
+                "title": "Store User request",
+                "description": "Store User request body data",
+                "properties": {
+                    "first_name": {
+                        "title": "first_name",
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "title": "last_name",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "email",
+                        "type": "string"
+                    },
+                    "role_id": {
+                        "title": "role_id",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "UserUpdateRequest": {
+                "title": "Update User request",
+                "description": "Update User request body data",
+                "properties": {
+                    "first_name": {
+                        "title": "first_name",
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "title": "last_name",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "email",
+                        "type": "string"
+                    },
+                    "role_id": {
+                        "title": "role_id",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Bearer token authentication",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
